@@ -1,0 +1,49 @@
+@startuml
+
+    title Mini Inbox - Diagrama de Componentes
+
+    left to right direction
+
+    skinparam componentStyle rectangle
+    skinparam packageStyle rectangle
+    skinparam shadowing false
+    skinparam linetype polyline
+    skinparam nodesep 100
+    skinparam ranksep 100
+    skinparam padding 16
+
+    skinparam defaultFontSize 16
+    skinparam ArrowFontSize 14
+    skinparam ComponentFontSize 16
+    skinparam PackageFontSize 18
+
+    actor Atendente
+
+    cloud "Kaggle" as Kaggle
+
+    component "Workflow n8n" as N8N
+
+    package "Mini Inbox" {
+        component "Frontend\nNext.js" as Frontend
+
+        component "Backend\nFastAPI" as Backend
+
+        database "SQLite" as SQLite
+
+        component "ETL\npandas" as ETL
+
+        artifact "Dataset bruto\nCSV \n JSON" as RawDataset
+        artifact "metrics.json" as Metrics
+    }
+
+    Atendente --> Frontend : Acessa a aplicação
+    Frontend --> Backend : HTTP | JSON\nRESTAPI
+    Backend --> SQLite : lê a altera\ntickets
+    Backend --> Metrics : lê métricas
+    Kaggle --> RawDataset : download
+    RawDataset --> ETL : entrada
+    ETL --> Metrics : gera  
+    Backend -up-> N8N : POST webhook\nclosed ou high
+    N8N -[hidden]down-> Backend
+
+@enduml
