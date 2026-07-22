@@ -64,3 +64,33 @@ def test_get_tickets_by_id(
     assert data["channel"] == "email"
     assert data["status"] == "open"
     assert data["priority"] == "medium"
+    
+
+def test_get_tickets_by_id_not_found(
+    client: TestClient,
+) -> None:
+    response = client.get("/tickets/9999")  # Assuming 9999 is a non-existent ticket ID
+
+    assert response.status_code == 404
+    data = response.json()
+    #assert data["detail"] == "Ticket not found"
+    
+def test_patch_ticket_status(
+    client: TestClient,
+    db_session: Session,
+) -> None:
+    ticket = Ticket(
+        customer_name="Ana Costa",
+        channel="chat",
+        status="open",
+        priority="low",
+    )
+    db_session.add(ticket)
+    db_session.commit()
+
+    response = client.patch(f"/tickets/{ticket.id}", json={"status": "closed"})
+
+    assert response.status_code == 200
+
+    data = response.json()
+    assert data["status"] == "closed"

@@ -1,12 +1,12 @@
 from typing import Annotated
 
-from fastapi import APIRouter, Depends, status
+from fastapi import APIRouter, Depends, status, HTTPException
 from sqlalchemy.orm import Session
 
 from app.core.database import get_db
 from app.features.tickets.repository.tickets_repository import TicketRepository
 from app.features.tickets.service.ticket_service import TicketService
-
+from app.features.tickets.service.exceptions.tickets_exception import TicketNotFoundException
 
 router = APIRouter(
     prefix="/tickets",
@@ -33,5 +33,8 @@ def get_ticket_by_id(
 ):
     repository = TicketRepository(db_session)
     service = TicketService(repository)
-
-    return service.get_ticket_by_id(ticket_id)
+    
+    try:    
+        return service.get_ticket_by_id(ticket_id)
+    except TicketNotFoundException as e:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(e))
