@@ -1,15 +1,14 @@
 from fastapi import APIRouter, Depends, status
+from app.features.tickets.service.ticket_service import TicketService
 
 router = APIRouter(prefix="/tickets", tags=["Tickets"])
 
 @router.get(
     "/",
     status_code = status.HTTP_200_OK,
+    dependencies=[Depends(TicketService)]
 )
-async def get_tickets():
-    return {
-        "tickets": [
-            {"id": 1, "title": "Ticket 1", "description": "Description for ticket 1"},
-            {"id": 2, "title": "Ticket 2", "description": "Description for ticket 2"}
-        ]
-    }
+async def get_tickets(
+    service: TicketService = Depends(TicketService)
+):
+    return service.get_tickets()

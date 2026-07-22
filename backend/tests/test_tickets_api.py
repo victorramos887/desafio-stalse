@@ -5,4 +5,4 @@ def test_get_tickets(client: TestClient) -> None:
     response = client.get("/tickets")
 
     assert response.status_code == 200
-    assert isinstance(response.json(), dict)
+    assert isinstance(response.json(), list)
