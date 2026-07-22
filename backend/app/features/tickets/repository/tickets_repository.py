@@ -14,3 +14,7 @@ class TicketRepository:
             query = query.filter(Ticket.priority == priority)
         
         return query.all()
+    
+
+    def get_ticket_by_id(self, ticket_id: int):
+        return self.db_session.query(Ticket).filter(Ticket.id == ticket_id).first()

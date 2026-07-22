@@ -25,3 +25,13 @@ def get_tickets(
     service = TicketService(repository)
 
     return service.get_tickets()
+
+@router.get("/{ticket_id}", status_code=status.HTTP_200_OK)
+def get_ticket_by_id(
+    ticket_id: int,
+    db_session: Annotated[Session, Depends(get_db)],
+):
+    repository = TicketRepository(db_session)
+    service = TicketService(repository)
+
+    return service.get_ticket_by_id(ticket_id)

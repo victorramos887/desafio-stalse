@@ -12,3 +12,9 @@ class TicketService:
         
     def get_tickets(self):
         return self.repository.get_tickets()
+
+    def get_ticket_by_id(self, ticket_id: int):
+        ticket = self.repository.get_ticket_by_id(ticket_id)
+        if not ticket:
+            raise ValueError(f"Ticket with ID {ticket_id} not found.")
+        return ticket
