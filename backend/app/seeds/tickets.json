@@ -1,0 +1,122 @@
+[
+    {
+        "customer_name": "Lucas Almeida",
+        "channel": "email",
+        "status": "open",
+        "priority": "medium"
+    },
+    {
+        "customer_name": "Maria Silva",
+        "channel": "whatsapp",
+        "status": "pending",
+        "priority": "high"
+    },
+    {
+        "customer_name": "João Souza",
+        "channel": "chat",
+        "status": "closed",
+        "priority": "low"
+    },
+    {
+        "customer_name": "Ana Costa",
+        "channel": "email",
+        "status": "open",
+        "priority": "high"
+    },
+    {
+        "customer_name": "Pedro Oliveira",
+        "channel": "whatsapp",
+        "status": "pending",
+        "priority": "medium"
+    },
+    {
+        "customer_name": "Carla Santos",
+        "channel": "chat",
+        "status": "closed",
+        "priority": "low"
+    },
+    {
+        "customer_name": "Rafael Lima",
+        "channel": "email",
+        "status": "open",
+        "priority": "medium"
+    },
+    {
+        "customer_name": "Fernanda Rocha",
+        "channel": "whatsapp",
+        "status": "pending",
+        "priority": "high"
+    },
+    {
+        "customer_name": "Bruno Martins",
+        "channel": "chat",
+        "status": "closed",
+        "priority": "low"
+    },
+    {
+        "customer_name": "Juliana Ferreira",
+        "channel": "email",
+        "status": "open",
+        "priority": "high"
+    },
+    {
+        "customer_name": "Gustavo Almeida",
+        "channel": "whatsapp",
+        "status": "pending",
+        "priority": "medium"
+    },
+    {
+        "customer_name": "Camila Souza",
+        "channel": "chat",
+        "status": "closed",
+        "priority": "low"
+    },
+    {
+        "customer_name": "Felipe Costa",
+        "channel": "email",
+        "status": "open",
+        "priority": "high"
+    },
+    {
+        "customer_name": "Larissa Oliveira",
+        "channel": "whatsapp",
+        "status": "pending",
+        "priority": "medium"
+    },
+    {
+        "customer_name": "Thiago Santos",
+        "channel": "chat",
+        "status": "closed",
+        "priority": "low"
+    },
+    {
+        "customer_name": "Isabela Lima",
+        "channel": "email",
+        "status": "open",
+        "priority": "high"
+    },
+    {
+        "customer_name": "Vinícius Rocha",
+        "channel": "whatsapp",
+        "status": "pending",
+        "priority": "medium"
+    },
+    {
+        "customer_name": "Mariana Martins",
+        "channel": "chat",
+        "status": "closed",
+        "priority": "low"
+    },
+    {
+        "customer_name": "Eduardo Ferreira",
+        "channel": "email",
+        "status": "open",
+        "priority": "high"
+    },
+    {
+        "customer_name": "Aline Almeida",
+        "channel": "whatsapp",
+        "status": "pending",
+        "priority": "medium"
+    }
+]
