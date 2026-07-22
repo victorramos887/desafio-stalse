@@ -94,3 +94,45 @@ def test_patch_ticket_status(
 
     data = response.json()
     assert data["status"] == "closed"
+    
+def test_delete_tikect_status(
+    client: TestClient,
+    db_session: Session,
+) -> None:
+    ticket = Ticket(
+        customer_name="Pedro Lima",
+        channel="phone",
+        status="open",
+        priority="high",
+    )
+    db_session.add(ticket)
+    db_session.commit()
+
+    response = client.patch(f"/tickets/{ticket.id}", json={"status": "deleted"})
+
+    assert response.status_code == 200
+
+    data = response.json()
+    assert data["status"] == "deleted"
+
+
+def test_post_ticket(
+    client: TestClient,
+    db_session: Session,
+) -> None:
+    ticket_data = {
+        "customer_name": "Lucas Almeida",
+        "channel": "email",
+        "status": "open",
+        "priority": "medium",
+    }
+
+    response = client.post("/tickets", json=ticket_data)
+
+    assert response.status_code == 201
+
+    data = response.json()
+    assert data["customer_name"] == "Lucas Almeida"
+    assert data["channel"] == "email"
+    assert data["status"] == "open"
+    assert data["priority"] == "medium"

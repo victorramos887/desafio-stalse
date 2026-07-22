@@ -4,6 +4,7 @@ from fastapi.params import Depends
 
 from app.features.tickets.repository.tickets_repository import TicketRepository
 from app.features.tickets.service.exceptions.tickets_exception import TicketNotFoundException
+from app.features.tickets.api.schemas.tickets_schemas import SchemaPostTicket
 
 class TicketService:
     
@@ -18,4 +19,14 @@ class TicketService:
         ticket = self.repository.get_ticket_by_id(ticket_id)
         if not ticket:
             raise self.ticket_not_found_exception(ticket_id)
+        return ticket
+    
+    def update_ticket(self, ticket_id: int, ticket_data: dict):
+        ticket = self.repository.get_ticket_by_id(ticket_id)
+        if not ticket:
+            raise self.ticket_not_found_exception(ticket_id)
+        return self.repository.update_ticket(ticket, ticket_data)
+    
+    def create_ticket(self, ticket_data: dict):
+        ticket = self.repository.create_ticket(ticket_data)
         return ticket

@@ -1,5 +1,5 @@
 from app.features.tickets.models.tickets_models import Ticket
-
+from app.features.tickets.api.schemas.tickets_schemas import SchemaPostTicket
 
 class TicketRepository:
     def __init__(self, db_session):
@@ -18,3 +18,17 @@ class TicketRepository:
 
     def get_ticket_by_id(self, ticket_id: int):
         return self.db_session.query(Ticket).filter(Ticket.id == ticket_id).first()
+    
+    def update_ticket(self, ticket: Ticket, ticket_data: dict):
+        
+        for key, value in ticket_data.items():
+            setattr(ticket, key, value)
+        
+        self.db_session.commit()
+        return ticket
+    
+    def create_ticket(self, ticket_data: dict):
+        ticket = Ticket(**ticket_data)
+        self.db_session.add(ticket)
+        self.db_session.commit()
+        return ticket
