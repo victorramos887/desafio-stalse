@@ -3,6 +3,7 @@ from contextlib import asynccontextmanager
 
 from app.core.config import get_settings
 from app.features.tickets.api.controller.tickets_controller import router as tickets_router
+from app.features.metrics.api.controller.metrics_controller import router as metrics_router
 from app.core.database import SessionLocal
 from app.seeds.seed import seed_tickets
 
@@ -20,6 +21,7 @@ async def lifespan(app: FastAPI):
 app = FastAPI(title=settings.app_name, version=settings.app_version, lifespan=lifespan)
 
 app.include_router(tickets_router)
+app.include_router(metrics_router)
 
 @app.get("/health")
 async def health_check():
