@@ -1,0 +1,51 @@
+@startuml
+    title Mini Inbox - Diagrama de Casos de Uso
+    left to right direction
+    ' actor "Usuario" as User
+
+    skinparam shadowing false
+    skinparam packageStyle rectangle
+    skinparam actorStyle awesome
+    skinparam Linetype ortho
+    skinparam roundcorner 12
+    skinparam nodesep 45
+    skinparam ranksep 55
+
+
+    actor Atendente
+    actor "n8n" as N8N
+
+    rectangle "Sistema Mini Inbox" {
+
+        ' CASOS DE USO DO ATENDENTE
+        usecase "Listar tickets" as UC_Listar
+        usecase "Pesquisar tickets" as UC_Pesquisar
+        usecase "Visualizar detalhes do ticket" as UC_Visualizar
+
+        usecase "Alterar status do ticket" as UC_AlterarStatus
+        usecase "Alterar prioridade do ticket" as UC_AlterarPrioridade
+
+        usecase "Visualizar métricas dashboard" as UC_VisualizarDashboard
+
+        ' CASOS DE USO DO N8N
+        usecase "Enviar envento ticket" as UC_Evento
+
+    }
+
+    Atendente --> UC_Listar
+    Atendente --> UC_Pesquisar
+    Atendente --> UC_Visualizar
+    Atendente --> UC_AlterarStatus
+    Atendente --> UC_AlterarPrioridade
+    Atendente --> UC_VisualizarDashboard
+
+    UC_Pesquisar ..> UC_Listar : <<include>>
+    UC_Visualizar ..> UC_Listar : <<include>>
+
+    UC_Evento ..> UC_AlterarStatus : <<extend>>\nstatus = closed
+    UC_Evento ..> UC_AlterarPrioridade : <<extend>>\nprioridade = high
+
+    N8N --> UC_Evento
+
+
+@enduml

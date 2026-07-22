@@ -1,0 +1,47 @@
+@startuml
+
+title Mini Inbox - Modelo de Domínio
+
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+' skinparam Linetype ortho
+
+class Ticket {
+    +id: int
+    +createdAt: datetime
+    +customerName: string
+    +channel: Channel
+    +subject: string
+    +description: string
+    +status: TicketStatus
+    +priority: TicketPriority
+    +updatedAt: datetime
+
+    +changeStatus(status: TicketStatus): void
+    +changePriority(priority: TicketPriority): void
+}
+
+enum TicketStatus {
+    OPEN
+    IN_PROGRESS
+    CLOSED
+}
+
+enum TicketPriority {
+    LOW
+    MEDIUM
+    HIGH
+}
+
+enum Channel {
+    EMAIL
+    WHATSAPP
+    CHAT
+    PHONE
+}
+
+Ticket --> TicketStatus
+Ticket --> TicketPriority
+Ticket --> Channel
+
+@enduml
