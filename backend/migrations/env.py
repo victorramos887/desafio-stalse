@@ -6,7 +6,7 @@ from sqlalchemy import pool
 from alembic import context
 
 from app.core.database import Base
-from app.features.tickets.models import Ticket
+from app.features.tickets.models.tickets_models import Ticket
 from app.core.config import get_settings
 
 # this is the Alembic Config object, which provides

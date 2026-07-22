@@ -1,8 +1,14 @@
 
 
+from fastapi.params import Depends
+
+from app.features.tickets.repository.tickets_repository import TicketRepository
+
+
 class TicketService:
+    
+    def __init__(self, repository: TicketRepository = Depends(TicketRepository)):
+        self.repository = repository
+        
     def get_tickets(self):
-        return [
-            {"id": 1, "title": "Ticket 1", "description": "Description for ticket 1"},
-            {"id": 2, "title": "Ticket 2", "description": "Description for ticket 2"}
-        ]
+        return self.repository.get_tickets()
