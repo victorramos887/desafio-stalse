@@ -7,6 +7,6 @@ settings = get_settings()
 app = FastAPI(title=settings.app_name, version=settings.app_version)
 
 
-@app.get("/")
+@app.get("/health")
 async def health_check():
-    return {"message": "Hello, World!"}
+    return {"message": "Hello, World!", "status": "ok"}
