@@ -1,4 +1,3 @@
-
 tickets = [
     {"status": "open", "priority": "high", "channel": "email"},
     {"status": "closed", "priority": "low", "channel": "phone"},
@@ -6,10 +5,11 @@ tickets = [
     {"status": "open", "priority": "high", "channel": "email"},
 ]
 
+
 class ServiceMetrics:
     def __init__(self, tickets: list):
         self.tickets = tickets
-        
+
     def get_metrics() -> dict:
         total = len(tickets)
         by_status = {}
