@@ -4,7 +4,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 
 from app.core.database import get_db
-from app.features.tickets.api.schemas.tickets_schemas import SchemaPostTicket
+from app.features.tickets.api.schemas.tickets_schemas import SchemaPostTicket, TicketEventCreate
 from app.features.tickets.repository.tickets_repository import TicketRepository
 from app.features.tickets.service.exceptions.tickets_exception import (
     TicketNotFoundException,
@@ -68,3 +68,10 @@ def create_ticket(
     service = TicketService(repository)
 
     return service.create_ticket(ticket_data.model_dump())
+
+
+@router.post("/ticket-events", status_code=status.HTTP_200_OK)
+def create_ticket_event(
+    ticket_event_data: TicketEventCreate,
+):    
+    return ticket_event_data

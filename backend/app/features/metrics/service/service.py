@@ -1,36 +1,32 @@
-tickets = [
-    {"status": "open", "priority": "high", "channel": "email"},
-    {"status": "closed", "priority": "low", "channel": "phone"},
-    {"status": "in_progress", "priority": "medium", "channel": "chat"},
-    {"status": "open", "priority": "high", "channel": "email"},
-]
+
+from __future__ import annotations
+
+import json
+import logging
+from pathlib import Path
+from typing import Any
+
+LOGGER = logging.getLogger(__name__)
+
+METRICS_DIR = Path(__file__).resolve().parents[1]
+GOLD_FILE = METRICS_DIR / "data" / "gold" / "metrics.json"
 
 
 class ServiceMetrics:
-    def __init__(self, tickets: list):
-        self.tickets = tickets
+    @staticmethod
+    def get_metrics() -> dict[str, Any]:
+        if not GOLD_FILE.exists():
+            LOGGER.warning(
+                "Gold metrics file not found at %s - running pipeline",
+                GOLD_FILE,
+            )
+            from app.features.metrics.etl.pipeline import run_pipeline
 
-    def get_metrics() -> dict:
-        total = len(tickets)
-        by_status = {}
-        by_priority = {}
-        by_channel = {}
+            run_pipeline()
 
-        for ticket in tickets:
-            status = ticket.get("status")
-            priority = ticket.get("priority")
-            channel = ticket.get("channel")
+        if not GOLD_FILE.exists():
+            raise FileNotFoundError(
+                f"Metrics file was not generated at {GOLD_FILE}"
+            )
 
-            if status:
-                by_status[status] = by_status.get(status, 0) + 1
-            if priority:
-                by_priority[priority] = by_priority.get(priority, 0) + 1
-            if channel:
-                by_channel[channel] = by_channel.get(channel, 0) + 1
-
-        return {
-            "total": total,
-            "by_status": by_status,
-            "by_priority": by_priority,
-            "by_channel": by_channel,
-        }
+        return json.loads(GOLD_FILE.read_text(encoding="utf-8"))

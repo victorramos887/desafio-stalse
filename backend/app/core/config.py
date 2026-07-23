@@ -5,12 +5,6 @@ class Settings(BaseSettings):
     app_name: str = "api_inbox"
     app_version: str = "0.1.0"
 
-    # database_user: str = "sqlite"
-    # database_password: str = "sqlite"
-    # database_db: str = "sqlite"
-    # database_host: str = "localhost"
-    # database_port: int = 5432
-
     database_url: str | None = None
 
     model_config = SettingsConfigDict(
