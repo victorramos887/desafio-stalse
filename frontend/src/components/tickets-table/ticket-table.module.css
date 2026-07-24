@@ -7,6 +7,26 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
+.tableActions {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0.75rem 0.75rem 0;
+}
+
+.toggleFiltersButton {
+  border: 1px solid var(--border);
+  background: #ffffff;
+  color: #1f2937;
+  border-radius: 8px;
+  padding: 0.4rem 0.7rem;
+  font-size: 0.875rem;
+  cursor: pointer;
+}
+
+.toggleFiltersButton:hover {
+  background: #f9fafb;
+}
+
 .table {
   width: 100%;
   border-collapse: collapse;
@@ -23,6 +43,68 @@
   font-weight: 600;
 }
 
+.sortButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.filterInput {
+  width: 100%;
+  min-width: 120px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.35rem 0.5rem;
+  background: #ffffff;
+}
+
 .table tbody tr:last-child td {
   border-bottom: none;
+}
+
+.status {
+  padding: 4px 8px;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+.open {
+  color: #166534;
+  background-color: #dcfce7;
+}
+
+.pending {
+  color: #854d0e;
+  background-color: #fef9c3;
+}
+
+.closed {
+  color: #991b1b;
+  background-color: #fee2e2;
+}
+
+.priority {
+  padding: 4px 8px;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+.low {
+  color: #1e3a8a;
+  background-color: #dbeafe;
+}
+.medium {
+  color: #78350f;
+  background-color: #fef3c7;
+}
+.high {
+  color: #7f1d1d;
+  background-color: #fee2e2;
 }
