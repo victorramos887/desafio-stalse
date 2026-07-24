@@ -1,36 +1,73 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Frontend - Mini Inbox Web
 
-## Getting Started
+Interface web em Next.js para operacao de tickets e visualizacao de metricas.
 
-First, run the development server:
+## Stack
+
+- Next.js 16 (App Router)
+- React 19
+- TypeScript
+- CSS Modules
+- Recharts (graficos)
+- Lucide React (icones)
+
+## Estrutura
+
+- `src/app/`: paginas e rotas.
+  - `tickets/page.tsx`: lista de tickets.
+  - `tickets/[ticketId]/page.tsx`: detalhe do ticket.
+  - `metrics/page.tsx`: dashboard de metricas.
+- `src/components/`: componentes reutilizaveis (header, tabela etc).
+- `src/services/`: comunicacao com API.
+- `src/utils/`: utilitarios (datas, urls).
+- `src/types/`: tipos TypeScript.
+
+## Como Rodar
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+App: `http://localhost:3000`
+
+## Variaveis de Ambiente
+
+Quando usar Docker Compose:
+- `INTERNAL_API_URL=http://backend:8000` (SSR dentro do container)
+- `NEXT_PUBLIC_API_URL=http://localhost:8000` (browser no host)
+
+Quando rodar local sem Docker:
+- `NEXT_PUBLIC_API_URL=http://localhost:8000`
+
+## Scripts
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run build
+npm run start
+npm run lint
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Como Adicionar Nova Tela
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. Criar rota em `src/app/nova-rota/page.tsx`.
+2. Criar CSS Module ao lado (`page.module.css`) se necessario.
+3. Se precisar de dados da API, adicionar funcao em `src/services/`.
+4. Criar tipos em `src/types/` para payloads.
+5. Atualizar navegacao no `Header` se a tela for publica no menu.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Padrao de Organizacao
 
-## Learn More
+- Pagina server-first quando possivel (SSR) para dados iniciais.
+- Componentes interativos em client components (`'use client'`).
+- Regras de formato e transformacao em `utils/`.
+- Chamadas de API centralizadas em `services/`.
 
-To learn more about Next.js, take a look at the following resources:
+## Manutencao Recomendada
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Rodar `npm run lint` antes de commit.
+- Evitar fetch direto em muitos arquivos; prefira `services/`.
+- Reutilizar componentes e tipos para evitar duplicacao.
+- Revisar comportamento SSR x Client ao mexer em URLs da API.

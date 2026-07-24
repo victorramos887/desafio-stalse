@@ -20,6 +20,8 @@ class TicketEventCreate(BaseModel):
     created_at: datetime
     source: str
     
+    
+    
 # class TicketDetails(BaseModel):
 #     customer_name: str
 #     channel: str
