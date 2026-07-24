@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { getTickets } from '@/services/ticket-service';
 import type { Ticket } from '@/types/ticket'
 import { ArrowBigDownDashIcon } from 'lucide-react';
+import { useRouter } from "next/navigation"
 
 import styles from "./ticket-table.module.css"
 
@@ -25,6 +26,7 @@ export default function TicketsTable() {
     const [error, setError] = useState<string | null>(null);
     const [showFilters, setShowFilters] = useState(false);
     const [createdAtSort, setCreatedAtSort] = useState<SortDirection>("asc");
+    const router = useRouter();
     const [filters, setFilters] = useState<TicketFilters>({
         customer_name: "",
         channel: "",
@@ -121,6 +123,10 @@ export default function TicketsTable() {
         return <div>{error}</div>;
     }
 
+    const openDetails = (ticketId: number) => {
+        router.push(`/tickets/${ticketId}`);
+    };
+
     return (
         <div className={styles.container}>
             <div className={styles.tableActions}>
@@ -210,7 +216,7 @@ export default function TicketsTable() {
                             <td className={statusClass[ticket.status]}>{ticket.status}</td>
                             <td className={priorityClass[ticket.priority]}>{ticket.priority}</td>
                             <td>{ticket.created_at}</td>
-                            <td><button type="button"><ArrowBigDownDashIcon /></button></td>
+                            <td><button type="button" onClick={() => openDetails(ticket.id)}><ArrowBigDownDashIcon /></button></td>
                         </tr>
                     ))}
                 </tbody>
