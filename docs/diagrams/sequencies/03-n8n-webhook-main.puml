@@ -1,0 +1,32 @@
+@startuml
+
+title Fluxo Principal - n8n Webhook de Eventos de Ticket
+
+autoactivate on
+
+participant "Backend\n(TicketService)" as Service
+participant "N8nClient" as Client
+participant "n8n Webhook Trigger" as Webhook
+participant "n8n Workflow" as Workflow
+participant "Acoes\n(Email/Slack/CRM)" as Actions
+
+Service -> Client: notify_ticket_updated(ticket_id, status)
+Client -> Webhook: POST JSON
+note right of Client
+payload:
+- ticket_id
+- status
+end note
+
+Webhook -> Workflow: inicia execucao
+Workflow -> Actions: processa regras de negocio
+Actions --> Workflow: resultado
+Workflow --> Webhook: finalizado
+Webhook --> Client: HTTP 2xx
+
+alt erro no POST
+  Client --> Service: excecao HTTPError
+  Service -> Service: registrar log de falha
+end
+
+@enduml

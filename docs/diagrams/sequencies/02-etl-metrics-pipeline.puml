@@ -1,0 +1,43 @@
+@startuml
+
+title Fluxo Principal - ETL de Metricas (Bronze -> Silver -> Gold)
+
+autoactivate on
+
+actor "Scheduler/Dev" as Trigger
+participant "ServiceMetrics" as Service
+participant "ETL Pipeline" as Pipeline
+participant "extract.py" as Extract
+participant "transform.py" as Transform
+participant "load.py" as Load
+collections "Bronze Data" as Bronze
+collections "Silver Data" as Silver
+collections "Gold Data\n(metrics.json)" as Gold
+
+Trigger -> Service: get_metrics()
+alt metrics.json nao existe
+  Service -> Pipeline: run_pipeline()
+  Pipeline -> Extract: extrair dados brutos
+  Extract -> Bronze: escrever arquivos bronze
+  Bronze --> Extract: ok
+
+  Pipeline -> Transform: transformar e limpar
+  Transform -> Bronze: ler dados bronze
+  Bronze --> Transform: dados brutos
+  Transform -> Silver: escrever dados tratados
+  Silver --> Transform: ok
+
+  Pipeline -> Load: consolidar metricas
+  Load -> Silver: ler dados silver
+  Silver --> Load: dados tratados
+  Load -> Gold: gerar metrics.json
+  Gold --> Load: ok
+  Load --> Pipeline: concluido
+  Pipeline --> Service: pipeline concluido
+end
+
+Service -> Gold: ler metrics.json
+Gold --> Service: json de metricas
+Service --> Trigger: resposta de metricas
+
+@enduml
