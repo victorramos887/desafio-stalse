@@ -1,6 +1,8 @@
 from fastapi.testclient import TestClient
 from pytest import Session
+
 from app.features.tickets.models.tickets_models import Ticket
+
 
 def test_get_tickets_returns_saved_tickets(
     client: TestClient,
@@ -29,10 +31,7 @@ def test_get_tickets_returns_saved_tickets(
     assert response.status_code == 200
 
     data = response.json()
-    tickets_by_customer = {
-        ticket["customer_name"]: ticket
-        for ticket in data
-    }
+    tickets_by_customer = {ticket["customer_name"]: ticket for ticket in data}
 
     assert len(data) == 2
 
@@ -41,7 +40,8 @@ def test_get_tickets_returns_saved_tickets(
 
     assert tickets_by_customer["João Souza"]["status"] == "closed"
     assert tickets_by_customer["João Souza"]["channel"] == "whatsapp"
-    
+
+
 def test_get_tickets_by_id(
     client: TestClient,
     db_session: Session,
@@ -64,7 +64,7 @@ def test_get_tickets_by_id(
     assert data["channel"] == "email"
     assert data["status"] == "open"
     assert data["priority"] == "medium"
-    
+
 
 def test_get_tickets_by_id_not_found(
     client: TestClient,
@@ -73,8 +73,9 @@ def test_get_tickets_by_id_not_found(
 
     assert response.status_code == 404
     data = response.json()
-    #assert data["detail"] == "Ticket not found"
-    
+    assert data["detail"] == "Ticket with ID 9999 not found."
+
+
 def test_patch_ticket_status(
     client: TestClient,
     db_session: Session,
@@ -94,7 +95,8 @@ def test_patch_ticket_status(
 
     data = response.json()
     assert data["status"] == "closed"
-    
+
+
 def test_delete_tikect_status(
     client: TestClient,
     db_session: Session,

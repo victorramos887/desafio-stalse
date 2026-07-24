@@ -1,0 +1,20 @@
+{
+  "total": 8469,
+  "by_status": {
+    "pending customer response": 2881,
+    "open": 2819,
+    "closed": 2769
+  },
+  "by_priority": {
+    "medium": 2192,
+    "critical": 2129,
+    "high": 2085,
+    "low": 2063
+  },
+  "by_channel": {
+    "email": 2143,
+    "phone": 2132,
+    "social media": 2121,
+    "chat": 2073
+  }
+}
