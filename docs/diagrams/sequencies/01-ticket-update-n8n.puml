@@ -1,0 +1,38 @@
+@startuml
+
+title Fluxo Principal - Atualizacao de Ticket com Notificacao n8n
+
+autoactivate on
+
+actor User
+participant "Frontend\n(Ticket Detail)" as FE
+participant "Backend API\n/tickets/{id} PATCH" as API
+participant "TicketService" as Service
+participant "TicketRepository" as Repo
+database "SQLite\n(tickets.db)" as DB
+participant "N8nClient" as N8nClient
+participant "n8n Webhook" as N8nWebhook
+
+User -> FE: Altera status/prioridade e salva
+FE -> API: PATCH /tickets/{id}
+API -> Service: update_ticket(ticket_id, payload)
+Service -> Repo: get_ticket_by_id(ticket_id)
+Repo -> DB: SELECT ticket
+DB --> Repo: ticket
+Repo --> Service: ticket
+
+Service -> Repo: update_ticket(ticket, payload)
+Repo -> DB: UPDATE ticket + COMMIT
+DB --> Repo: ok
+Repo --> Service: updated_ticket
+
+Service -> N8nClient: notify_ticket_updated(id, status)
+N8nClient -> N8nWebhook: POST webhook (ticket_id, status)
+N8nWebhook --> N8nClient: 2xx/erro
+N8nClient --> Service: retorno (log em caso de erro)
+
+Service --> API: updated_ticket
+API --> FE: 200 OK + ticket atualizado
+FE --> User: Confirma atualizacao
+
+@enduml

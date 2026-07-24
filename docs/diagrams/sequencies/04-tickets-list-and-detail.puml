@@ -1,0 +1,41 @@
+@startuml
+
+title Fluxo Importante - Consulta de Tickets (Lista e Detalhe)
+
+autoactivate on
+
+actor User
+participant "Frontend\n/tickets" as FEList
+participant "Frontend\n/tickets/{id}" as FEDetail
+participant "Backend API\n/tickets" as API
+participant "TicketService" as Service
+participant "TicketRepository" as Repo
+database "SQLite\n(tickets.db)" as DB
+
+User -> FEList: Acessa lista de tickets
+FEList -> API: GET /tickets
+API -> Service: get_tickets()
+Service -> Repo: get_tickets()
+Repo -> DB: SELECT * FROM tickets
+DB --> Repo: rows
+Repo --> Service: tickets
+Service --> API: tickets
+API --> FEList: 200 OK + lista
+
+User -> FEDetail: Clica em um ticket
+FEDetail -> API: GET /tickets/{id}
+API -> Service: get_ticket_by_id(id)
+Service -> Repo: get_ticket_by_id(id)
+Repo -> DB: SELECT ticket by id
+DB --> Repo: ticket/null
+Repo --> Service: ticket/null
+
+alt ticket encontrado
+  Service --> API: ticket
+  API --> FEDetail: 200 OK + detalhe
+else ticket nao encontrado
+  Service --> API: TicketNotFoundException
+  API --> FEDetail: 404 Not Found
+end
+
+@enduml

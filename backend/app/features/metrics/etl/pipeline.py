@@ -12,12 +12,23 @@ from app.features.metrics.etl.transform import transform_dataset
 LOGGER = logging.getLogger(__name__)
 
 
-def build_metrics(dataframe: pd.DataFrame) -> dict[str, int]:
+def build_metrics(dataframe: pd.DataFrame) -> dict[str, object]:
+    by_date = (
+        dataframe["date_of_purchase"]
+        .dropna()
+        .dt.strftime("%Y-%m-%d")
+        .value_counts()
+        .sort_index()
+        .to_dict()
+    )
+    by_subject = dataframe["ticket_subject"].value_counts().to_dict()
     return {
         "total": int(len(dataframe)),
         "by_status": dataframe["ticket_status"].value_counts().to_dict(),
         "by_priority": dataframe["ticket_priority"].value_counts().to_dict(),
         "by_channel": dataframe["ticket_channel"].value_counts().to_dict(),
+        "by_date": by_date,
+        "by_subject": by_subject,
     }
 
 

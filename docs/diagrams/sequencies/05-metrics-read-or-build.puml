@@ -1,0 +1,33 @@
+@startuml
+
+title Fluxo Importante - Leitura de Metricas com Fallback para Pipeline
+
+autoactivate on
+
+actor User
+participant "Frontend\n/metrics" as FE
+participant "Backend API\n/metrics" as API
+participant "ServiceMetrics" as Service
+participant "ETL Pipeline" as Pipeline
+collections "Gold\nmetrics.json" as Gold
+
+User -> FE: Acessa dashboard de metricas
+FE -> API: GET /metrics/
+API -> Service: get_metrics()
+
+Service -> Gold: verificar existencia
+alt arquivo gold existe
+  Service -> Gold: ler metrics.json
+  Gold --> Service: conteudo JSON
+  Service --> API: metricas
+  API --> FE: 200 OK + metricas
+else arquivo gold nao existe
+  Service -> Pipeline: run_pipeline()
+  Pipeline --> Service: finalizado
+  Service -> Gold: ler metrics.json
+  Gold --> Service: conteudo JSON
+  Service --> API: metricas
+  API --> FE: 200 OK + metricas
+end
+
+@enduml

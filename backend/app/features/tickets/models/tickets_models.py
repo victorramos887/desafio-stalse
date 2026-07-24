@@ -43,6 +43,9 @@ class Ticket(Base):
     priority: Mapped[str] = mapped_column(
         String(20), nullable=False, default=TicketPriority.MEDIUM
     )
+    email: Mapped[str] = mapped_column(
+        String(100), nullable=True
+    )
 
     created_at: Mapped[datetime] = mapped_column(
         DateTime, nullable=False, server_default=func.now()

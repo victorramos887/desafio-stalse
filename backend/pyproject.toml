@@ -9,6 +9,7 @@ dependencies = [
     "fastapi>=0.139.2",
     "kagglehub>=1.0.2",
     "pandas>=3.0.3",
+    "pyarrow>=25.0.0",
     "pydantic-settings>=2.14.2",
     "sqlalchemy>=2.0.51",
     "uvicorn>=0.51.0",

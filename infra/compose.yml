@@ -1,4 +1,18 @@
 services:
+  frontend:
+    build:
+      context: ../frontend
+      dockerfile: Dockerfile
+    container_name: mini-inbox-frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - INTERNAL_API_URL=http://backend:8000
+      - NEXT_PUBLIC_API_URL=http://localhost:8000
+    depends_on:
+      - backend
+    restart: unless-stopped
+
   backend:
     build:
       context: ../backend
@@ -21,13 +35,12 @@ services:
       - N8N_PORT=5678
       - N8N_PROTOCOL=http
       - N8N_WEBHOOK_URL=http://localhost:5678/
+      # Fixed key in compose for one-command bootstrap across machines.
+      - N8N_ENCRYPTION_KEY=56cb683bba91811b902eac01e95d8eeddc8034cf0311e83933c5994739e71767
       - GENERIC_TIMEZONE=America/Sao_Paulo
       - TZ=America/Sao_Paulo
     volumes:
-      - n8n_data:/home/node/.n8n
+      - ./n8n_data:/home/node/.n8n
     depends_on:
       - backend
     restart: unless-stopped
-
-volumes:
-  n8n_data:

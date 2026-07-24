@@ -1,0 +1,40 @@
+@startuml
+
+title Indice de Diagramas de Sequencia
+
+note as N1
+01-ticket-update-n8n.puml
+Fluxo principal de atualizacao de ticket
+com notificacao para webhook do n8n.
+end note
+
+note as N2
+02-etl-metrics-pipeline.puml
+Fluxo principal do ETL de metricas
+com etapas extract, transform e load.
+end note
+
+note as N3
+03-n8n-webhook-main.puml
+Fluxo principal de execucao do
+workflow do n8n via webhook.
+end note
+
+note as N4
+04-tickets-list-and-detail.puml
+Fluxo de consulta de lista e detalhe
+de tickets (inclui 404).
+end note
+
+note as N5
+05-metrics-read-or-build.puml
+Fluxo de leitura de metricas com
+fallback para gerar pipeline.
+end note
+
+N1 -[hidden]down- N2
+N2 -[hidden]down- N3
+N3 -[hidden]down- N4
+N4 -[hidden]down- N5
+
+@enduml

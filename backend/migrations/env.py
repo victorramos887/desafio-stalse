@@ -1,10 +1,24 @@
+import sys
+import os
 from logging.config import fileConfig
+from pathlib import Path
+
+# Add backend directory to path
+sys.path.insert(0, str(Path(__file__).parent.parent.resolve()))
 
 from alembic import context
 from sqlalchemy import engine_from_config, pool
 
-from app.core.config import get_settings
-from app.core.database import Base
+# Try to import models and settings
+try:
+    from app.core.database import Base
+    from app.core.config import get_settings
+    from app.features.tickets.models.ticket_models import Ticket  # noqa: F401
+    
+    target_metadata = Base.metadata
+except ImportError as e:
+    print(f"Warning: Could not import models: {e}")
+    target_metadata = None
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -15,15 +29,12 @@ config = context.config
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
-settings = get_settings()
-
-config.set_main_option("sqlalchemy.url", str(settings.database_url))
-
-# add your model's MetaData object here
-# for 'autogenerate' support
-# from myapp import mymodel
-# target_metadata = mymodel.Base.metadata
-target_metadata = Base.metadata
+# Setup database URL
+try:
+    settings = get_settings()
+    config.set_main_option("sqlalchemy.url", str(settings.database_url))
+except Exception as e:
+    print(f"Warning: Could not set database URL: {e}")
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:
@@ -69,7 +80,12 @@ def run_migrations_online() -> None:
     )
 
     with connectable.connect() as connection:
-        context.configure(connection=connection, target_metadata=target_metadata)
+        context.configure(
+            connection=connection,
+            target_metadata=target_metadata,
+            compare_type=True,
+            compare_server_default=True,
+        )
 
         with context.begin_transaction():
             context.run_migrations()

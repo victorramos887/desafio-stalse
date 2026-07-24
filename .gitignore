@@ -1,0 +1,8 @@
+infra/.env
+infra/backups/
+infra/n8n_data/
+**/__pycache__/
+*.pyc
+*.pyo
+frontend/.next/
+frontend/node_modules/

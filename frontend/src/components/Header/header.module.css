@@ -1,0 +1,35 @@
+.header {
+  width: 100%;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+
+.content {
+  width: 100%;
+  max-width: var(--page-max-width);
+  margin: 0 auto;
+  padding: 1rem 2rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.navigation {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.navigation a {
+  color: var(--text-muted);
+  transition: color 0.2s;
+}
+
+.navigation a:hover {
+  color: var(--foreground);
+}
