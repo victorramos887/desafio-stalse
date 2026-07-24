@@ -3,6 +3,7 @@ import styles from './page.module.css';
 import TicketsChart from './TicketsChart';
 import TopSubjects from './TopSubjects';
 import DataSourceInfo from './DataSourceInfo';
+import { getServerApiUrl } from '@/utils/api-url';
 
 interface MetricsData {
   total: number;
@@ -14,7 +15,7 @@ interface MetricsData {
 }
 
 async function getMetrics(): Promise<MetricsData> {
-  const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:8000';
+  const API_URL = getServerApiUrl();
   const response = await fetch(`${API_URL}/metrics/`, { cache: 'no-store' });
   if (!response.ok) throw new Error('Failed to fetch metrics');
   return response.json();

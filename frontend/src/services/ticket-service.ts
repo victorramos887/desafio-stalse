@@ -1,8 +1,10 @@
 import type { Ticket, UpdateTicketData } from "@/types/ticket"
+import { getClientApiUrl, getServerApiUrl } from "@/utils/api-url"
 
 
-const API_URL = 
-    process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
+function getApiUrl(): string {
+    return typeof window === "undefined" ? getServerApiUrl() : getClientApiUrl();
+}
 
 export class TicketServiceError extends Error {
     status: number;
@@ -16,7 +18,7 @@ export class TicketServiceError extends Error {
 
 
 export async function getTickets(): Promise<Ticket[]> {
-    const response = await fetch(`${API_URL}/tickets`);
+    const response = await fetch(`${getApiUrl()}/tickets`);
 
     if (!response.ok) {
         throw new Error("Failed to fetch tickets");
@@ -25,7 +27,7 @@ export async function getTickets(): Promise<Ticket[]> {
 }
 
 export async function getTicketById(ticketId: number): Promise<Ticket> {
-    const response = await fetch(`${API_URL}/tickets/${ticketId}`, {
+    const response = await fetch(`${getApiUrl()}/tickets/${ticketId}`, {
         cache: "no-store",
     });
     
@@ -42,7 +44,7 @@ export async function getTicketById(ticketId: number): Promise<Ticket> {
 
 
 export async function updateTicket(ticketId: number, data: UpdateTicketData): Promise<Ticket>  {
-    const response = await fetch(`${API_URL}/tickets/${ticketId}`, {
+    const response = await fetch(`${getApiUrl()}/tickets/${ticketId}`, {
         method: "PATCH",
         headers: {
             "Content-Type": "application/json"
