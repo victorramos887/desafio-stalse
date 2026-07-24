@@ -19,6 +19,7 @@ def build_metrics(dataframe: pd.DataFrame) -> dict[str, object]:
         .dt.strftime("%Y-%m-%d")
         .value_counts()
         .sort_index()
+        .tail(70)
         .to_dict()
     )
     by_subject = dataframe["ticket_subject"].value_counts().to_dict()

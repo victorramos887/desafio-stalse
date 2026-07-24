@@ -44,24 +44,24 @@ export default function TicketDetailsClient({
         <div className={styles.layout}>
           <div className={styles.ticketCard}>
             <div className={styles.infoGrid}>
-              <span>customer_name</span>
+              <span>Nome do Cliente</span>
               <strong>{ticket.customer_name}</strong>
 
-              <span>email</span>
+              <span>Email</span>
               <p>{ticket.email}</p>
 
-              <span>channel</span>
+              <span>Canal</span>
               <p>{ticket.channel}</p>
 
-              <span>created_at</span>
+              <span>Criado em</span>
               <p>{ticket.created_at}</p>
 
-              <span>subject</span>
+              <span>Assunto</span>
               <p>{ticket.subject}</p>
             </div>
 
             <div className={styles.description}>
-              <span>description</span>
+              <span>Descrição</span>
 
               <p>{ticket.description}</p>
             </div>
@@ -69,35 +69,35 @@ export default function TicketDetailsClient({
             <div className={styles.divider} />
 
             <div className={styles.formGroup}>
-              <label htmlFor="status">status</label>
+              <label htmlFor="status">Status</label>
 
               <select
                 id="status"
                 value={status}
                 onChange={(e) => setStatus(e.target.value as TicketStatus)}
               >
-                <option value="open">open</option>
-                <option value="pending">pending</option>
-                <option value="closed">closed</option>
+                <option value="open">Aberto</option>
+                <option value="pending">Pendente</option>
+                <option value="closed">Fechado</option>
               </select>
             </div>
 
             <div className={styles.formGroup}>
-              <label htmlFor="priority">priority</label>
+              <label htmlFor="priority">Prioridade</label>
 
               <select
                 id="priority"
                 value={priority}
                 onChange={(e) => setPriority(e.target.value as TicketPriority)}
               >
-                <option value="low">low</option>
-                <option value="medium">medium</option>
-                <option value="high">high</option>
+                <option value="low">Baixo</option>
+                <option value="medium">Médio</option>
+                <option value="high">Alto</option>
               </select>
             </div>
 
             <div className={styles.actions}>
-              <button className={styles.saveButton} onClick={handleSave}>Salvar alteracao</button>
+              <button className={styles.saveButton} onClick={handleSave}>Salvar alteração</button>
 
             </div>
           </div>
