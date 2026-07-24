@@ -16,14 +16,28 @@ export class TicketServiceError extends Error {
     }
 }
 
+async function parseJsonSafely<T>(response: Response): Promise<T> {
+    const raw = await response.text();
+
+    if (!raw.trim()) {
+        throw new TicketServiceError("Empty response from API", response.status);
+    }
+
+    try {
+        return JSON.parse(raw) as T;
+    } catch {
+        throw new TicketServiceError("Invalid JSON response from API", response.status);
+    }
+}
+
 
 export async function getTickets(page: number, pageSize: number): Promise<PaginatedTickets> {
     const response = await fetch(`${getApiUrl()}/tickets?page=${page}&page_size=${pageSize}`);
 
     if (!response.ok) {
-        throw new Error("Failed to fetch tickets");
+        throw new TicketServiceError("Failed to fetch tickets", response.status);
     }
-    return response.json();
+    return parseJsonSafely<PaginatedTickets>(response);
 }
 
 export async function getTicketById(ticketId: number): Promise<Ticket> {
@@ -38,7 +52,7 @@ export async function getTicketById(ticketId: number): Promise<Ticket> {
             response.status,
         );
     }
-    return response.json();
+    return parseJsonSafely<Ticket>(response);
 }
 
 
@@ -54,9 +68,9 @@ export async function updateTicket(ticketId: number, data: UpdateTicketData): Pr
     });
 
     if (!response.ok) {
-        throw new Error("Failed to update ticket")
+        throw new TicketServiceError("Failed to update ticket", response.status)
     }
 
-    return response.json();
+    return parseJsonSafely<Ticket>(response);
 
 }

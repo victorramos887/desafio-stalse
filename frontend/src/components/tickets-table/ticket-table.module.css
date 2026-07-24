@@ -116,9 +116,12 @@
   }
 }
 
-.status {
-  padding: 4px 8px;
-  border-radius: 8px;
+
+.status,
+.priority {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 999px;
   font-weight: 600;
 }
 
@@ -137,20 +140,16 @@
   background-color: #fee2e2;
 }
 
-.priority {
-  padding: 4px 8px;
-  border-radius: 8px;
-  font-weight: 600;
-}
-
 .low {
   color: #1e3a8a;
   background-color: #dbeafe;
 }
+
 .medium {
   color: #78350f;
   background-color: #fef3c7;
 }
+
 .high {
   color: #7f1d1d;
   background-color: #fee2e2;

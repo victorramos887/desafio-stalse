@@ -228,8 +228,17 @@ export default function TicketsTable() {
                         <tr key={ticket.id}>
                             <td>{ticket.customer_name}</td>
                             <td>{ticket.channel}</td>
-                            <td className={statusClass[ticket.status]}>{ticket.status}</td>
-                            <td className={priorityClass[ticket.priority]}>{ticket.priority}</td>
+                            <td>
+                            <span className={`${styles.status} ${statusClass[ticket.status]}`}>
+                                {ticket.status}
+                            </span>
+                            </td>
+
+                            <td>
+                            <span className={`${styles.priority} ${priorityClass[ticket.priority]}`}>
+                                {ticket.priority}
+                            </span>
+                            </td>
                             <td>{formatDate(ticket.created_at)}</td>
                             <td><button type="button" onClick={() => openDetails(ticket.id)}><EyeIcon /></button></td>
                         </tr>
