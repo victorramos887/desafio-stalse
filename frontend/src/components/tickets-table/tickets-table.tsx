@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { getTickets } from '@/services/ticket-service';
 import type { Ticket } from '@/types/ticket'
-import { ArrowBigDownDashIcon } from 'lucide-react';
+import { EyeIcon } from 'lucide-react';
 import { useRouter } from "next/navigation"
 import { formatDate } from '@/utils/dateFormatter';
 
@@ -23,6 +23,10 @@ export default function TicketsTable() {
 
     // CONSTANTES
     const [tickets, setTickets] = useState<Ticket[]>([]);
+    const [page, setPage] = useState(1);
+    const [pageSize, setPageSize] = useState(10);
+    const [totalPages, setTotalPages] = useState(0);
+    const [totalItems, setTotalItems] = useState(0);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [showFilters, setShowFilters] = useState(false);
@@ -105,8 +109,11 @@ export default function TicketsTable() {
     useEffect(() => {
         async function loadTickets() {
             try {
-                const data = await getTickets();
-                setTickets(data);
+                setLoading(true);
+                const data = await getTickets(page, pageSize);
+                setTickets(data.items);
+                setTotalPages(data.total_pages);
+                setTotalItems(data.total_items);
             } catch (_error) {
                 setError("Failed to load tickets");
             } finally {
@@ -114,7 +121,7 @@ export default function TicketsTable() {
             }
         }
         loadTickets();
-    }, []);
+    }, [page, pageSize]);
 
     if (loading) {
         return <div>Loading...</div>;
@@ -127,6 +134,13 @@ export default function TicketsTable() {
     const openDetails = (ticketId: number) => {
         router.push(`/tickets/${ticketId}`);
     };
+
+    const pageOptions = Array.from({ length: totalPages }, (_, index) => index + 1);
+
+    function handlePageSizeChange(value: number) {
+        setPageSize(value);
+        setPage(1);
+    }
 
     return (
         <div className={styles.container}>
@@ -214,15 +228,61 @@ export default function TicketsTable() {
                         <tr key={ticket.id}>
                             <td>{ticket.customer_name}</td>
                             <td>{ticket.channel}</td>
-                            <td className={statusClass[ticket.status]}>{ticket.status}</td>
-                            <td className={priorityClass[ticket.priority]}>{ticket.priority}</td>
+                            <td>
+                            <span className={`${styles.status} ${statusClass[ticket.status]}`}>
+                                {ticket.status}
+                            </span>
+                            </td>
+
+                            <td>
+                            <span className={`${styles.priority} ${priorityClass[ticket.priority]}`}>
+                                {ticket.priority}
+                            </span>
+                            </td>
                             <td>{formatDate(ticket.created_at)}</td>
-                            <td><button type="button" onClick={() => openDetails(ticket.id)}><ArrowBigDownDashIcon /></button></td>
+                            <td><button type="button" onClick={() => openDetails(ticket.id)}><EyeIcon /></button></td>
                         </tr>
                     ))}
                 </tbody>
 
             </table>
+            <div className={styles.paginationArea}>
+                <div className={styles.paginationSummary}>
+                    Total: {totalItems} ticket(s)
+                </div>
+                <div className={styles.paginationControls}>
+                    <label className={styles.paginationLabel}>
+                        Itens por página
+                        <select
+                            className={styles.paginationSelect}
+                            value={pageSize}
+                            onChange={(event) => handlePageSizeChange(Number(event.target.value))}
+                        >
+                            <option value={5}>5</option>
+                            <option value={10}>10</option>
+                            <option value={20}>20</option>
+                            <option value={50}>50</option>
+                        </select>
+                    </label>
+
+                    <label className={styles.paginationLabel}>
+                        Página
+                        <select
+                            className={styles.paginationSelect}
+                            value={page}
+                            onChange={(event) => setPage(Number(event.target.value))}
+                            disabled={totalPages <= 1}
+                        >
+                            {pageOptions.length === 0 && <option value={1}>1</option>}
+                            {pageOptions.map((pageOption) => (
+                                <option key={pageOption} value={pageOption}>
+                                    {pageOption}
+                                </option>
+                            ))}
+                        </select>
+                    </label>
+                </div>
+            </div>
 
         </div>
     )

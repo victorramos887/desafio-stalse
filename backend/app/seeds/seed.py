@@ -9,6 +9,7 @@ from app.core.database import SessionLocal
 from app.features.tickets.models.tickets_models import Ticket
 
 SEED_FILE_PATH = Path(__file__).parent / "tickets.json"
+DEFAULT_SEED_TOTAL = 100
 
 
 def _parse_iso_datetime(value: str) -> datetime:
@@ -18,13 +19,29 @@ def _parse_iso_datetime(value: str) -> datetime:
     return datetime.fromisoformat(value)
 
 
-def seed_tickets(session: Session) -> int:
+def _expand_tickets_data(tickets_data: list[dict], total: int) -> list[dict]:
+    if len(tickets_data) >= total:
+        return tickets_data[:total]
+
+    expanded: list[dict] = []
+    for index in range(total):
+        base = dict(tickets_data[index % len(tickets_data)])
+        base["customer_name"] = f"{base['customer_name']} #{index + 1}"
+        base["email"] = f"seed{index + 1}@email.com"
+        expanded.append(base)
+
+    return expanded
+
+
+def seed_tickets(session: Session, total: int = DEFAULT_SEED_TOTAL) -> int:
     existing_tickets = session.execute(select(Ticket)).scalars().all()
 
     if existing_tickets:
         return 0
     with open(SEED_FILE_PATH, encoding="utf-8") as file:
         tickets_data = json.load(file)
+
+    tickets_data = _expand_tickets_data(tickets_data, total)
 
     for ticket in tickets_data:
         created_at = ticket.get("created_at")

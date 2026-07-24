@@ -1,6 +1,7 @@
 import { Ticket, CheckCircle2, AlertTriangle, Mail } from 'lucide-react';
 import styles from './page.module.css';
 import TicketsChart from './TicketsChart';
+import TicketsPieChart from './TicketsPieChart';
 import TopSubjects from './TopSubjects';
 import DataSourceInfo from './DataSourceInfo';
 import { getServerApiUrl } from '@/utils/api-url';
@@ -79,7 +80,10 @@ export default async function DashboardPage() {
           </article>
         </section>
 
-        <TicketsChart byDate={metrics.by_date} />
+        <section className={styles.chartsGrid}>
+          <TicketsChart byDate={metrics.by_date} />
+          <TicketsPieChart byChannel={metrics.by_channel} />
+        </section>
         <section className={styles.bottomGrid}>
           <TopSubjects bySubject={metrics.by_subject} />
           <DataSourceInfo generatedAt={generatedAt} />

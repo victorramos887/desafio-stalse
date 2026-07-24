@@ -18,7 +18,15 @@ export default function DataSourceInfo({ generatedAt }: DataSourceInfoProps) {
 }`}
       </pre>
 
-      <p className={styles.dataSourceHint}>Dados processados via ETL e servidos por /metrics.</p>
+      <p className={styles.dataSourceHint}>Dados processados via ETL e servidos por /metrics.\
+        <br />
+        <a 
+          href="https://www.kaggle.com/datasets/suraj520/customer-support-ticket-dataset" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          style={{ textDecoration: "underline", color: "#1e3a8a" }}
+        >Fonte dos dados</a>
+      </p>
     </aside>
   );
 }

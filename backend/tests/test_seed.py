@@ -12,8 +12,8 @@ def test_seed_should_insert_tickets_in_empty_database(
 
     total = db_session.scalar(select(func.count()).select_from(Ticket))
 
-    assert inserted == 20
-    assert total == 20
+    assert inserted == 100
+    assert total == 100
 
 
 def test_seed_should_not_duplicate_tickets(
@@ -24,6 +24,6 @@ def test_seed_should_not_duplicate_tickets(
 
     total = db_session.scalar(select(func.count()).select_from(Ticket))
 
-    assert first_inserted == 20
+    assert first_inserted == 100
     assert second_inserted == 0
-    assert total == 20
+    assert total == 100
