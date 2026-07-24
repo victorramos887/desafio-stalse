@@ -88,9 +88,25 @@ npm run dev
 
 - Backend: [`backend/README.md`](backend/README.md)
 - Frontend: [`frontend/README.md`](frontend/README.md)
+- Documentacao geral: [`docs/README.md`](docs/README.md)
 
 ## Dataset
 
 Fonte principal: Kaggle
 - `suraj520/customer-support-ticket-dataset`
 - https://www.kaggle.com/datasets/suraj520/customer-support-ticket-dataset
+
+## Workflow n8n do Projeto
+
+Arquivo oficial do workflow exportado:
+- `workflow.json`
+
+Esse arquivo representa o fluxo principal do n8n usado no projeto e pode ser importado no editor do n8n.
+
+Mais detalhes de documentacao e diagramas:
+- [`docs/README.md`](docs/README.md)
+
+Screenshot do fluxo no editor:
+- [`docs/images/n8n-workflow-update-status.png`](docs/images/n8n-workflow-update-status.png)
+
+![Workflow n8n - Update Status](docs/images/n8n-workflow-update-status.png)
