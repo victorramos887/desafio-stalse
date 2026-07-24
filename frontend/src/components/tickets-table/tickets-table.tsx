@@ -5,6 +5,7 @@ import { getTickets } from '@/services/ticket-service';
 import type { Ticket } from '@/types/ticket'
 import { ArrowBigDownDashIcon } from 'lucide-react';
 import { useRouter } from "next/navigation"
+import { formatDate } from '@/utils/dateFormatter';
 
 import styles from "./ticket-table.module.css"
 
@@ -215,7 +216,7 @@ export default function TicketsTable() {
                             <td>{ticket.channel}</td>
                             <td className={statusClass[ticket.status]}>{ticket.status}</td>
                             <td className={priorityClass[ticket.priority]}>{ticket.priority}</td>
-                            <td>{ticket.created_at}</td>
+                            <td>{formatDate(ticket.created_at)}</td>
                             <td><button type="button" onClick={() => openDetails(ticket.id)}><ArrowBigDownDashIcon /></button></td>
                         </tr>
                     ))}

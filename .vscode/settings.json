@@ -1,0 +1,18 @@
+{
+  "files.associations": {
+    "*.tsx": "typescriptreact",
+    "*.jsx": "javascriptreact"
+  },
+  "emmet.triggerExpansionOnTab": true,
+  "emmet.showSuggestionsAsSnippets": true,
+  "emmet.showExpandedAbbreviation": "always",
+  "emmet.includeLanguages": {
+    "javascript": "javascriptreact",
+    "typescript": "typescriptreact",
+    "javascriptreact": "html",
+    "typescriptreact": "html"
+  },
+  "editor.snippetSuggestions": "top",
+  "typescript.suggest.autoImports": false,
+  "javascript.suggest.autoImports": false
+}
