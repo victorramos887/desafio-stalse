@@ -8,4 +8,6 @@ export interface Ticket {
     status: TicketStatus;
     priority: TicketPriority;
     created_at: string;
+    description: string;
+    subject: string;
 }

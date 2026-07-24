@@ -8,7 +8,7 @@ from sqlalchemy.orm import Session
 from app.core.database import get_db
 from app.features.tickets.api.schemas.tickets_schemas import (
     SchemaPostTicket,
-    TicketEventCreate,
+    TicketEventCreate
 )
 from app.features.tickets.repository.tickets_repository import TicketRepository
 from app.features.tickets.service.exceptions.tickets_exception import (

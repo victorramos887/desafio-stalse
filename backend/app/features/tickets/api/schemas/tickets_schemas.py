@@ -8,6 +8,9 @@ class SchemaPostTicket(BaseModel):
     channel: str
     status: str
     priority: str
+    email: str
+    subject: str
+    description: str
 
 
 class TicketEventCreate(BaseModel):
@@ -16,3 +19,11 @@ class TicketEventCreate(BaseModel):
     event: str
     created_at: datetime
     source: str
+    
+# class TicketDetails(BaseModel):
+#     customer_name: str
+#     channel: str
+#     status: str
+#     priority: str
+#     description: str
+#     subject: str

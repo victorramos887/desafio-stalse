@@ -3,120 +3,220 @@
         "customer_name": "Lucas Almeida",
         "channel": "email",
         "status": "open",
-        "priority": "medium"
+        "priority": "medium",
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        "created_at": "2023-06-01T10:00:00Z",
+        "updated_at": "2023-06-01T10:00:00Z",
+        "subject": "Problema com o produto",
+        "email": "lucas_almeida@email.com"
     },
     {
         "customer_name": "Maria Silva",
         "channel": "whatsapp",
         "status": "pending",
-        "priority": "high"
+        "priority": "high",
+        "description": "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+        "created_at": "2023-06-02T14:30:00Z",
+        "updated_at": "2023-06-02T14:30:00Z",
+        "subject": "Dúvida sobre o serviço",
+        "email": "maria_silva@email.com"
     },
     {
         "customer_name": "João Souza",
         "channel": "chat",
         "status": "closed",
-        "priority": "low"
+        "priority": "low",
+        "description": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+        "created_at": "2023-06-03T09:15:00Z",
+        "updated_at": "2023-06-03T09:15:00Z",
+        "subject": "Solicitação de suporte",
+        "email": "joao_souza@email.com"
     },
     {
         "customer_name": "Ana Costa",
         "channel": "email",
         "status": "open",
-        "priority": "high"
+        "priority": "high",
+        "description": "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        "created_at": "2023-06-04T11:45:00Z",
+        "updated_at": "2023-06-04T11:45:00Z",
+        "subject": "Problema com pagamento",
+        "email": "ana_costa@email.com"
     },
     {
         "customer_name": "Pedro Oliveira",
         "channel": "whatsapp",
         "status": "pending",
-        "priority": "medium"
+        "priority": "medium",
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        "created_at": "2023-06-05T16:20:00Z",
+        "updated_at": "2023-06-05T16:20:00Z",
+        "subject": "Dúvida sobre entrega",
+        "email": "pedro_oliveira@email.com"
     },
     {
         "customer_name": "Carla Santos",
         "channel": "chat",
         "status": "closed",
-        "priority": "low"
+        "priority": "low",
+        "description": "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+        "created_at": "2023-06-06T13:10:00Z",
+        "updated_at": "2023-06-06T13:10:00Z",
+        "subject": "Solicitação de cancelamento",
+        "email": "carla_santos@email.com"
     },
     {
         "customer_name": "Rafael Lima",
         "channel": "email",
         "status": "open",
-        "priority": "medium"
+        "priority": "medium",
+        "description": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+        "created_at": "2023-06-07T15:55:00Z",
+        "updated_at": "2023-06-07T15:55:00Z",
+        "subject": "Problema com cadastro",
+        "email": "rafael_lima@email.com"
     },
     {
         "customer_name": "Fernanda Rocha",
         "channel": "whatsapp",
         "status": "pending",
-        "priority": "high"
+        "priority": "high",
+        "description": "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        "created_at": "2023-06-08T12:40:00Z",
+        "updated_at": "2023-06-08T12:40:00Z",
+        "subject": "Dúvida sobre produto",
+        "email": "fernanda_rocha@email.com"
     },
     {
         "customer_name": "Bruno Martins",
         "channel": "chat",
         "status": "closed",
-        "priority": "low"
+        "priority": "low",
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        "created_at": "2023-06-09T10:25:00Z",
+        "updated_at": "2023-06-09T10:25:00Z",
+        "subject": "Solicitação de reembolso",
+        "email": "bruno_martins@email.com"
     },
     {
         "customer_name": "Juliana Ferreira",
         "channel": "email",
         "status": "open",
-        "priority": "high"
+        "priority": "high",
+        "description": "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+        "created_at": "2023-06-10T14:05:00Z",
+        "updated_at": "2023-06-10T14:05:00Z",
+        "subject": "Problema com entrega",
+        "email": "juliana_ferreira@email.com"
     },
     {
         "customer_name": "Gustavo Almeida",
         "channel": "whatsapp",
         "status": "pending",
-        "priority": "medium"
+        "priority": "medium",
+        "description": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+        "created_at": "2023-06-11T09:50:00Z",
+        "updated_at": "2023-06-11T09:50:00Z",
+        "subject": "Dúvida sobre pagamento",
+        "email": "gustavo_almeida@email.com"
     },
     {
         "customer_name": "Camila Souza",
         "channel": "chat",
         "status": "closed",
-        "priority": "low"
+        "priority": "low",
+        "description": "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        "created_at": "2023-06-12T13:35:00Z",
+        "updated_at": "2023-06-12T13:35:00Z",
+        "subject": "Solicitação de suporte",
+        "email": "camila_souza@email.com"
     },
     {
         "customer_name": "Felipe Costa",
         "channel": "email",
         "status": "open",
-        "priority": "high"
+        "priority": "high",
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        "created_at": "2023-06-13T11:20:00Z",
+        "updated_at": "2023-06-13T11:20:00Z",
+        "subject": "Problema com cadastro",
+        "email": "felipe_costa@email.com"
     },
     {
         "customer_name": "Larissa Oliveira",
         "channel": "whatsapp",
         "status": "pending",
-        "priority": "medium"
+        "priority": "medium",
+        "description": "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+        "created_at": "2023-06-14T15:10:00Z",
+        "updated_at": "2023-06-14T15:10:00Z",
+        "subject": "Dúvida sobre produto",
+        "email": "larissa_oliveira@email.com"
     },
     {
         "customer_name": "Thiago Santos",
         "channel": "chat",
         "status": "closed",
-        "priority": "low"
+        "priority": "low",
+        "description": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+        "created_at": "2023-06-15T10:55:00Z",
+        "updated_at": "2023-06-15T10:55:00Z",
+        "subject": "Solicitação de reembolso",
+        "email": "thiago_santos@email.com"
     },
     {
         "customer_name": "Isabela Lima",
         "channel": "email",
         "status": "open",
-        "priority": "high"
+        "priority": "high",
+        "description": "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        "created_at": "2023-06-16T14:40:00Z",
+        "updated_at": "2023-06-16T14:40:00Z",
+        "subject": "Problema com entrega",
+        "email": "isabela_lima@email.com"
     },
     {
         "customer_name": "Vinícius Rocha",
         "channel": "whatsapp",
         "status": "pending",
-        "priority": "medium"
+        "priority": "medium",
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        "created_at": "2023-06-17T09:25:00Z",
+        "updated_at": "2023-06-17T09:25:00Z",
+        "subject": "Dúvida sobre pagamento",
+        "email": "vinicius_rocha@email.com"
     },
     {
         "customer_name": "Mariana Martins",
         "channel": "chat",
         "status": "closed",
-        "priority": "low"
+        "priority": "low",
+        "description": "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+        "created_at": "2023-06-18T13:15:00Z",
+        "updated_at": "2023-06-18T13:15:00Z",
+        "subject": "Solicitação de suporte",
+        "email": "mariana_martins@email.com"
     },
     {
         "customer_name": "Eduardo Ferreira",
         "channel": "email",
         "status": "open",
-        "priority": "high"
+        "priority": "high",
+        "description": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+        "created_at": "2023-06-19T11:00:00Z",
+        "updated_at": "2023-06-19T11:00:00Z",
+        "subject": "Problema com cadastro",
+        "email": "eduardo_ferreira@email.com"
     },
     {
         "customer_name": "Aline Almeida",
         "channel": "whatsapp",
         "status": "pending",
-        "priority": "medium"
+        "priority": "medium",
+        "description": "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        "created_at": "2023-06-20T15:50:00Z",
+        "updated_at": "2023-06-20T15:50:00Z",
+        "subject": "Dúvida sobre produto",
+        "email": "aline_almeida@email.com"
     }
 ]
