@@ -6,6 +6,7 @@ class Settings(BaseSettings):
     app_version: str = "0.1.0"
 
     database_url: str | None = None
+    n8n_webhook_url: str | None = None
 
     model_config = SettingsConfigDict(
         case_sensitive=False,

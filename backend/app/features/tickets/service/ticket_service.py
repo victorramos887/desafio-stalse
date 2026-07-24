@@ -2,12 +2,16 @@ from app.features.tickets.repository.tickets_repository import TicketRepository
 from app.features.tickets.service.exceptions.tickets_exception import (
     TicketNotFoundException,
 )
+from app.integrations.n8n_client import N8nClient
+from app.core.config import get_settings
 
+settings = get_settings()
 
 class TicketService:
     def __init__(self, repository: TicketRepository):
         self.repository = repository
         self.ticket_not_found_exception = TicketNotFoundException
+        self.integration_client = N8nClient(webhook_url=settings.n8n_webhook_url)
 
     def get_tickets(self):
         return self.repository.get_tickets()
@@ -22,8 +26,11 @@ class TicketService:
         ticket = self.repository.get_ticket_by_id(ticket_id)
         if not ticket:
             raise self.ticket_not_found_exception(ticket_id)
-        return self.repository.update_ticket(ticket, ticket_data)
+        updated_ticket = self.repository.update_ticket(ticket, ticket_data)
+        self.integration_client.notify_ticket_updated(ticket_id, updated_ticket.status)
+        return updated_ticket
 
     def create_ticket(self, ticket_data: dict):
         ticket = self.repository.create_ticket(ticket_data)
+        self.integration_client.notify_ticket_updated(ticket.id, ticket.status)
         return ticket

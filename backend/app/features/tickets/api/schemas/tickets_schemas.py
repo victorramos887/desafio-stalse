@@ -1,5 +1,7 @@
-from pydantic import BaseModel
 from datetime import datetime
+
+from pydantic import BaseModel
+
 
 class SchemaPostTicket(BaseModel):
     customer_name: str
@@ -12,5 +14,5 @@ class TicketEventCreate(BaseModel):
     ticket_id: int
     status: str
     event: str
-    create_at: datetime
+    created_at: datetime
     source: str

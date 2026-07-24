@@ -59,6 +59,7 @@ SILVER_COLUMNS: Final[tuple[str, ...]] = (
     "is_resolved",
 )
 
+
 def normalize_column_names(dataframe: pd.DataFrame) -> pd.DataFrame:
     normalized = dataframe.copy()
 
@@ -90,9 +91,9 @@ def normalize_categories(dataframe: pd.DataFrame) -> pd.DataFrame:
     for column in LOWERCASE_COLUMNS:
         normalized[column] = normalized[column].astype("string").str.strip().str.lower()
 
-    normalized["product_purchased"] = normalized["product_purchased"].astype(
-        "string"
-    ).str.strip()
+    normalized["product_purchased"] = (
+        normalized["product_purchased"].astype("string").str.strip()
+    )
 
     LOGGER.info("Categorical columns normalized")
 
@@ -136,9 +137,7 @@ def validate_values(dataframe: pd.DataFrame) -> pd.DataFrame:
         "customer_satisfaction_rating"
     ].where(validated["customer_satisfaction_rating"].between(1, 5))
 
-    LOGGER.info(
-        "Invalid ages and ratings replaced with null"
-    )
+    LOGGER.info("Invalid ages and ratings replaced with null")
 
     return validated
 

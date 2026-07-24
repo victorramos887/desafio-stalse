@@ -1,10 +1,15 @@
+import logging
 from typing import Annotated
 
+from app.integrations.n8n_client import N8nClient
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 
 from app.core.database import get_db
-from app.features.tickets.api.schemas.tickets_schemas import SchemaPostTicket, TicketEventCreate
+from app.features.tickets.api.schemas.tickets_schemas import (
+    SchemaPostTicket,
+    TicketEventCreate,
+)
 from app.features.tickets.repository.tickets_repository import TicketRepository
 from app.features.tickets.service.exceptions.tickets_exception import (
     TicketNotFoundException,
@@ -51,7 +56,7 @@ def update_ticket(
     db_session: Annotated[Session, Depends(get_db)],
 ):
     repository = TicketRepository(db_session)
-    service = TicketService(repository)
+    service = TicketService(repository=repository)
 
     try:
         return service.update_ticket(ticket_id, ticket_data)
@@ -73,5 +78,8 @@ def create_ticket(
 @router.post("/ticket-events", status_code=status.HTTP_200_OK)
 def create_ticket_event(
     ticket_event_data: TicketEventCreate,
-):    
+):
+    logging.info(f"Received ticket event: {ticket_event_data}")
+    print(f"Received ticket event: {ticket_event_data}")
+
     return ticket_event_data

@@ -5,7 +5,6 @@ from typing import Any
 
 import pandas as pd
 
-
 METRICS_DIR = Path(__file__).resolve().parents[1]
 
 SILVER_DIR = METRICS_DIR / "data" / "silver"

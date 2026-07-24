@@ -1,4 +1,3 @@
-
 from __future__ import annotations
 
 import json
@@ -25,8 +24,6 @@ class ServiceMetrics:
             run_pipeline()
 
         if not GOLD_FILE.exists():
-            raise FileNotFoundError(
-                f"Metrics file was not generated at {GOLD_FILE}"
-            )
+            raise FileNotFoundError(f"Metrics file was not generated at {GOLD_FILE}")
 
         return json.loads(GOLD_FILE.read_text(encoding="utf-8"))
