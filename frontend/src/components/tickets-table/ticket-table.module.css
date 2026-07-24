@@ -68,6 +68,54 @@
   border-bottom: none;
 }
 
+.paginationArea {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.9rem;
+  border-top: 1px solid var(--border);
+}
+
+.paginationSummary {
+  color: #4b5563;
+  font-size: 0.9rem;
+}
+
+.paginationControls {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.paginationLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: #374151;
+  font-size: 0.9rem;
+}
+
+.paginationSelect {
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.35rem 0.45rem;
+  background: #ffffff;
+}
+
+@media (max-width: 720px) {
+  .paginationArea {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .paginationControls {
+    width: 100%;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+}
+
 .status {
   padding: 4px 8px;
   border-radius: 8px;

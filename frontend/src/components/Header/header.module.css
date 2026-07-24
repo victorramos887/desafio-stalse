@@ -33,3 +33,11 @@
 .navigation a:hover {
   color: var(--foreground);
 }
+
+.navigation a.active {
+  color: var(--foreground);
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 0.35rem;
+  text-decoration-thickness: 2px;
+}

@@ -59,4 +59,8 @@ def test_get_tickets_returns_saved_tickets(
 
     data = response.json()
 
-    assert len(data) == 2
+    assert len(data["items"]) == 2
+    assert data["page"] == 1
+    assert data["page_size"] == 10
+    assert data["total_items"] == 2
+    assert data["total_pages"] == 1

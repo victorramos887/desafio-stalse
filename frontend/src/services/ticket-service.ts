@@ -1,4 +1,4 @@
-import type { Ticket, UpdateTicketData } from "@/types/ticket"
+import type { PaginatedTickets, Ticket, UpdateTicketData } from "@/types/ticket"
 import { getClientApiUrl, getServerApiUrl } from "@/utils/api-url"
 
 
@@ -17,8 +17,8 @@ export class TicketServiceError extends Error {
 }
 
 
-export async function getTickets(): Promise<Ticket[]> {
-    const response = await fetch(`${getApiUrl()}/tickets`);
+export async function getTickets(page: number, pageSize: number): Promise<PaginatedTickets> {
+    const response = await fetch(`${getApiUrl()}/tickets?page=${page}&page_size=${pageSize}`);
 
     if (!response.ok) {
         throw new Error("Failed to fetch tickets");

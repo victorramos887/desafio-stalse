@@ -31,15 +31,44 @@ def test_get_tickets_returns_saved_tickets(
     assert response.status_code == 200
 
     data = response.json()
-    tickets_by_customer = {ticket["customer_name"]: ticket for ticket in data}
+    tickets_by_customer = {ticket["customer_name"]: ticket for ticket in data["items"]}
 
-    assert len(data) == 2
+    assert len(data["items"]) == 2
+    assert data["page"] == 1
+    assert data["page_size"] == 10
+    assert data["total_items"] == 2
+    assert data["total_pages"] == 1
 
     assert tickets_by_customer["Maria Silva"]["status"] == "open"
     assert tickets_by_customer["Maria Silva"]["priority"] == "high"
 
     assert tickets_by_customer["João Souza"]["status"] == "closed"
     assert tickets_by_customer["João Souza"]["channel"] == "whatsapp"
+
+
+def test_get_tickets_with_custom_pagination(
+    client: TestClient,
+    db_session: Session,
+) -> None:
+    db_session.add_all(
+        [
+            Ticket(customer_name=f"Cliente {index}", channel="email")
+            for index in range(1, 13)
+        ]
+    )
+    db_session.commit()
+
+    response = client.get("/tickets?page=2&page_size=5")
+
+    assert response.status_code == 200
+
+    data = response.json()
+
+    assert data["page"] == 2
+    assert data["page_size"] == 5
+    assert data["total_items"] == 12
+    assert data["total_pages"] == 3
+    assert len(data["items"]) == 5
 
 
 def test_get_tickets_by_id(

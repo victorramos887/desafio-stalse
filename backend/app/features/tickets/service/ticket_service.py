@@ -13,8 +13,21 @@ class TicketService:
         self.ticket_not_found_exception = TicketNotFoundException
         self.integration_client = N8nClient(webhook_url=settings.n8n_webhook_url)
 
-    def get_tickets(self):
-        return self.repository.get_tickets()
+    def get_tickets(self, page: int, page_size: int):
+        items, total_items = self.repository.get_tickets_paginated(
+            page=page,
+            page_size=page_size,
+        )
+
+        total_pages = (total_items + page_size - 1) // page_size if total_items else 0
+
+        return {
+            "items": items,
+            "page": page,
+            "page_size": page_size,
+            "total_items": total_items,
+            "total_pages": total_pages,
+        }
 
     def get_ticket_by_id(self, ticket_id: int):
         ticket = self.repository.get_ticket_by_id(ticket_id)

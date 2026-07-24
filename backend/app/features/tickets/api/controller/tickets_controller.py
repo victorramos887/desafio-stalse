@@ -2,7 +2,7 @@ import logging
 from typing import Annotated
 
 from app.integrations.n8n_client import N8nClient
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlalchemy.orm import Session
 
 from app.core.database import get_db
@@ -28,11 +28,13 @@ router = APIRouter(
 )
 def get_tickets(
     db_session: Annotated[Session, Depends(get_db)],
+    page: int = Query(default=1, ge=1),
+    page_size: int = Query(default=10, ge=1, le=100),
 ):
     repository = TicketRepository(db_session)
     service = TicketService(repository)
 
-    return service.get_tickets()
+    return service.get_tickets(page=page, page_size=page_size)
 
 
 @router.get("/{ticket_id}", status_code=status.HTTP_200_OK)
