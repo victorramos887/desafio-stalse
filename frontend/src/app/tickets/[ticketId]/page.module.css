@@ -101,6 +101,25 @@
   color: #ffffff;
 }
 
+.saveButton:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.toast {
+  position: fixed;
+  top: 1.25rem;
+  right: 1.25rem;
+  z-index: 50;
+  padding: 0.9rem 1.1rem;
+  border-radius: 999px;
+  background: #16a34a;
+  color: #ffffff;
+  font-weight: 600;
+  box-shadow: 0 12px 28px rgba(22, 163, 74, 0.28);
+  animation: toastInOut 2.5s ease-in-out forwards;
+}
+
 .closeButton {
   border: 1px solid #dc2626;
   background: transparent;
@@ -140,5 +159,31 @@
 
   .actions {
     flex-direction: column;
+  }
+
+  .toast {
+    left: 1rem;
+    right: 1rem;
+    top: 1rem;
+    text-align: center;
+  }
+}
+
+@keyframes toastInOut {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.98);
+  }
+  12% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  88% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.98);
   }
 }

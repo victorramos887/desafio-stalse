@@ -11,6 +11,8 @@ from app.features.metrics.api.controller.metrics_controller import (
 from app.features.tickets.api.controller.tickets_controller import (
     router as tickets_router,
 )
+from prometheus_fastapi_instrumentator import Instrumentator
+
 from app.seeds.seed import seed_tickets
 
 settings = get_settings()
@@ -27,6 +29,11 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(title=settings.app_name, version=settings.app_version, lifespan=lifespan)
+
+Instrumentator().instrument(app).expose(
+    app,
+    endpoint="/metrics/prometheus",
+)
 
 app.add_middleware(
     CORSMiddleware,

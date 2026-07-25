@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { updateTicket } from "@/services/ticket-service";
 
 import type { Ticket, TicketPriority, TicketStatus } from "@/types/ticket";
@@ -19,6 +19,22 @@ export default function TicketDetailsClient({
 }: TicketDetailsClientProps) {
   const [status, setStatus] = useState<TicketStatus>(ticket.status);
   const [priority, setPriority] = useState<TicketPriority>(ticket.priority);
+  const [savedStatus, setSavedStatus] = useState<TicketStatus>(ticket.status);
+  const [savedPriority, setSavedPriority] = useState<TicketPriority>(ticket.priority);
+  const [saveMessage, setSaveMessage] = useState<string | null>(null);
+  const hasChanges = status !== savedStatus || priority !== savedPriority;
+
+  useEffect(() => {
+    if (!saveMessage) {
+      return;
+    }
+
+    const timeoutId = window.setTimeout(() => {
+      setSaveMessage(null);
+    }, 2500);
+
+    return () => window.clearTimeout(timeoutId);
+  }, [saveMessage]);
 
   const handleSave = async () => {
     try {
@@ -26,14 +42,24 @@ export default function TicketDetailsClient({
         status,
         priority,
       });
+      setSavedStatus(status);
+      setSavedPriority(priority);
+      setSaveMessage("Salvo com sucesso.");
       console.log("Ticket atualizado com sucesso:", updatedTicket);
     } catch (error) {
+      setSaveMessage(null);
       console.error("Erro ao atualizar o ticket:", error);
     }
-  }
+  };
 
   return (
     <main className={styles.page}>
+      {saveMessage && (
+        <div className={styles.toast} role="status" aria-live="polite">
+          {saveMessage}
+        </div>
+      )}
+
       <section className={styles.section}>
         <Link href="/tickets" className={styles.backLink}>
           ← Voltar
@@ -97,8 +123,13 @@ export default function TicketDetailsClient({
             </div>
 
             <div className={styles.actions}>
-              <button className={styles.saveButton} onClick={handleSave}>Salvar alteração</button>
-
+              <button
+                className={styles.saveButton}
+                onClick={handleSave}
+                disabled={!hasChanges}
+              >
+                Salvar alteração
+              </button>
             </div>
           </div>
 
