@@ -8,19 +8,23 @@ fi
 
 BACKUP_FILE="$1"
 ROOT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+N8N_ROOT_DIR="$ROOT_DIR/../n8n"
+N8N_DATA_DIR="$N8N_ROOT_DIR/data"
 
 if [ ! -f "$BACKUP_FILE" ]; then
   echo "Arquivo nao encontrado: $BACKUP_FILE"
   exit 1
 fi
 
+mkdir -p "$N8N_ROOT_DIR"
+cd "$N8N_ROOT_DIR"
+
+mkdir -p "$N8N_DATA_DIR"
+
 cd "$ROOT_DIR"
-
-mkdir -p n8n_data
-
 docker compose stop n8n >/dev/null 2>&1 || true
-rm -rf n8n_data/*
-tar -xzf "$BACKUP_FILE" -C "$ROOT_DIR"
+rm -rf "$N8N_DATA_DIR"/*
+tar -xzf "$BACKUP_FILE" -C "$N8N_ROOT_DIR"
 docker compose up -d n8n
 
 echo "Restore concluido usando: $BACKUP_FILE"

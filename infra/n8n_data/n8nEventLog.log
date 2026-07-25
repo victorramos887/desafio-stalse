@@ -1,2 +1,0 @@
-{"__type":"$$EventMessageAudit","id":"6633e379-fc6a-4b4b-99e6-8564a9708ba6","ts":"2026-07-24T22:09:13.984-03:00","eventName":"n8n.audit.workflow.activated","message":"n8n.audit.workflow.activated","payload":{"workflowId":"FPhqwMO7my46sJeP","workflowName":"Update Status","activeVersionId":"ee88e134-59e8-49fd-a182-bbc6dc220bf2","activationMode":"init"}}
-{"__type":"$$EventMessageConfirm","confirm":"6633e379-fc6a-4b4b-99e6-8564a9708ba6","ts":"2026-07-24T22:09:13.984-03:00","source":{"id":"0","name":"eventBus"}}
